@@ -1,6 +1,7 @@
 package com.addi.syndicat.services;
 
 import com.addi.syndicat.entities.GestionnaireSite;
+import com.addi.syndicat.payload.response.MessageResponse;
 import com.addi.syndicat.repository.GestionnairesiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,14 +33,13 @@ public class GestionnaireSiteServiceImpl implements GestionnaireSiteService {
     }
 
     @Override
-    public ResponseEntity<String> saveGestionairesite(GestionnaireSite gestionnairesite) {
-        if ((getGestionnairesite(gestionnairesite.getCodeGestionnaire())) != null) {
-            return ResponseEntity.badRequest()
-                    .body("Gestionnaire site existe déjà");
-        } else
-            gestionnairesiteRepository.save(gestionnairesite);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body("Gestionnaire site enregistré");
+    public ResponseEntity<?> saveGestionairesite(GestionnaireSite gestionnaireSite) {
+
+        gestionnaireSite.setCodeGestionnaire(alphaNumeric.getAlphaNumericString(6));
+        if (gestionnaireSite.getNomGestionnaire() == null || gestionnaireSite.getNomGestionnaire().isEmpty()) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Nom du gestionnaire du site est requis"));
+
+        }
 
 
     }

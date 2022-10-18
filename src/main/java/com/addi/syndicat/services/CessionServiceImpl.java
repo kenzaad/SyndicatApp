@@ -29,6 +29,23 @@ public class CessionServiceImpl implements CessionService {
     @Override
     public ResponseEntity<?> saveCession(Cession cession) {
         cession.setCodeCession(alphaNumeric.getAlphaNumericString(6));
+        if(cession.getCoproprietaire().getCodeCoproprietaire()==null || cession.getCoproprietaire().getCodeCoproprietaire().isEmpty())
+        {
+            return  ResponseEntity.badRequest().body(new MessageResponse(" Code du coproprietaire est requis"));
+        }
+        if(cession.getDateAcquisition()==null)
+        {
+            return  ResponseEntity.badRequest().body(new MessageResponse(" Date d'acquisition est requis"));
+        }
+        if(cession.getDateVente()==null)
+        {
+            return  ResponseEntity.badRequest().body(new MessageResponse(" Date de vente est requis"));
+        }
+        if(cession.getDateAcquisition().after(cession.getDateVente()))
+        {
+            return  ResponseEntity.badRequest().body(new MessageResponse(" Date de vente doit être antérieur à la date d'asquisition"));
+
+        }
         Coproprietaire coproprietaire = coproprietaireRepository.findByCodeCoproprietaire(cession.getCoproprietaire().getCodeCoproprietaire());
         cession.setCoproprietaire(coproprietaire);
         cessionRepository.save(cession);

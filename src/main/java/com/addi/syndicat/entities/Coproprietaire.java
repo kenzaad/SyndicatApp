@@ -16,10 +16,10 @@ public class Coproprietaire {
     private String codeCoproprietaire;
     private String nomCopro;
     private String cin;
-    private int teleFixe;
+    private String teleFixe;
     private  int gsm;
     private String email;
-  @OneToOne(fetch = FetchType.EAGER,mappedBy ="coproprietaire")
+  @OneToOne(fetch = FetchType.EAGER,mappedBy ="coproprietaire",cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE })
 @JsonIgnore
   Cession cessions;
   @OneToMany(mappedBy = "coproprietaire")

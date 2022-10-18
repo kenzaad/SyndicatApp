@@ -40,6 +40,23 @@ public class CoproprietaireServiceImpl implements CoproprietaireService {
     @Override
     public ResponseEntity<?> saveCopropriétaire(Coproprietaire coproprietaire) {
         coproprietaire.setCodeCoproprietaire(alphaNumeric.getAlphaNumericString(6));
+        if(coproprietaire.getNomCopro()==null || coproprietaire.getNomCopro().isEmpty() )
+        {
+            return ResponseEntity.badRequest().body(new MessageResponse("Nom est requis"));
+        }
+
+        if(coproprietaire.getCin()==null || coproprietaire.getCin().isEmpty() )
+        {
+            return ResponseEntity.badRequest().body(new MessageResponse("Cin est requis"));
+        }
+        if(coproprietaire.getTeleFixe()==null || coproprietaire.getTeleFixe().isEmpty() )
+        {
+            return ResponseEntity.badRequest().body(new MessageResponse("Telephone est requis"));
+        }
+        if(coproprietaire.getEmail()==null || coproprietaire.getEmail().isEmpty() )
+        {
+            return ResponseEntity.badRequest().body(new MessageResponse("Email est requis"));
+        }
         coproprietaireRepository.save(coproprietaire);
 
         return  ResponseEntity.ok(new MessageResponse("Copropriétaire sauvegardé avec succès!"));

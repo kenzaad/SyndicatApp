@@ -10,6 +10,6 @@ public interface GestionnaireSiteService {
     GestionnaireSite getGestionnairesite(String code);
     int deleteGestionnairesite(long id);
     List<GestionnaireSite> listGestionnairesite();
-    ResponseEntity<String> saveGestionairesite(GestionnaireSite gestionnairesite);
+    ResponseEntity<?> saveGestionairesite(GestionnaireSite gestionnairesite);
     GestionnaireSite updateGestionnairesite(GestionnaireSite gestionnairesite, long id);
 }

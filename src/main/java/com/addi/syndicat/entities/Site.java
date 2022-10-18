@@ -15,13 +15,13 @@ public class Site {
     private long id;
     private String codesite;
     private String Nomsite;
-    private String Adressesite;
-    private String Ville;
-    private String Titrefoncier;
+    private String adresseSite;
+    private String ville;
+    private String titreFoncier;
     @Enumerated(EnumType.STRING)
-    private BatimentsSite batimentssite;
+    private BatimentsSite batimentsSite;
     @OneToMany(mappedBy = "site")
-    List<GestionnaireSite> gestionnairesites;
+    List<GestionnaireSite> gestionnaireSites;
     @OneToMany(mappedBy = "site")
     List<Depenses>depenses;
     @ManyToOne
