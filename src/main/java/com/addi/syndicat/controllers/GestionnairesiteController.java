@@ -31,7 +31,7 @@ public class GestionnairesiteController {
                 gestionnairesiteService.listGestionnairesite();
     }
     @PostMapping("/")
-    public ResponseEntity<String> saveGestionnairesite(@RequestBody GestionnaireSite gestionnairesite) {
+    public ResponseEntity<?> saveGestionnairesite(@RequestBody GestionnaireSite gestionnairesite) {
         return gestionnairesiteService.saveGestionairesite(gestionnairesite);
     }
     @PutMapping("/Gestionnairesite/{id}")

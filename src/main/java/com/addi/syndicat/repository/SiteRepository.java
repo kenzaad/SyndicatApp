@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SiteRepository extends JpaRepository<Site, Long> {
-    Site findByCodesite(String codesite);
+    Site findByCodeSite(String codesite);
 }

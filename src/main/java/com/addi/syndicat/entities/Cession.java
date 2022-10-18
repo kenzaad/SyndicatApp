@@ -22,10 +22,7 @@ public class Cession {
     private Date dateAcquisition;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateVente;
-    @OneToMany(mappedBy = "cession")
-    private List<Site> sites;
     @OneToOne(fetch = FetchType.EAGER)
-
     private Coproprietaire coproprietaire;
 
 }

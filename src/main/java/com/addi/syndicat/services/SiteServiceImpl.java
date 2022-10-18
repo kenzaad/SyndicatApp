@@ -1,6 +1,7 @@
 package com.addi.syndicat.services;
 
 import com.addi.syndicat.entities.Site;
+import com.addi.syndicat.payload.response.MessageResponse;
 import com.addi.syndicat.repository.SiteRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +19,32 @@ public class SiteServiceImpl implements SiteService{
     @Override
     public Site getSite(String codeSite) {
 
-        return siteRepository.findByCodesite(codeSite) ;
+        return siteRepository.findByCodeSite(codeSite) ;
     }
 
     @Override
-    public ResponseEntity<String> saveSite(Site site) {
-        if(getSite(site.getCodesite())!=null)
-        {
-            return  ResponseEntity.badRequest()
-                    .body("Code site existe déjà");
-        }
-        else
-            siteRepository.save(site);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body("Code site enregistré");
+    public ResponseEntity<?> saveSite(Site site) {
+       site.setCodeSite(alphaNumeric.getAlphaNumericString(6));
+       if(site.getAdresseSite().isEmpty() || site.getAdresseSite()==null)
+       {
+           return ResponseEntity.badRequest().body(new MessageResponse("Adresse du site est requise!"));
+       }
+       if(site.getNomSite().isEmpty() || site.getNomSite()==null)
+       {
+           return ResponseEntity.badRequest().body(new MessageResponse("Nom du site est requis!"));
 
+       }
+       if(site.getBatimentsSite().name().isEmpty() || site.getBatimentsSite().name()==null)
+       {
+           return ResponseEntity.badRequest().body(new MessageResponse("Type du batiment du site est requis!"));
+       }
+       if(site.getTitreFoncier().isEmpty()|| site.getBatimentsSite().name()==null)
+       {
+           return ResponseEntity.badRequest().body(new MessageResponse("Titre foncier du site est requis!"));
+       }
+
+       siteRepository.save(site);
+       return ResponseEntity.ok(new MessageResponse("Site est ajouté avec succès"));
 
     }
 

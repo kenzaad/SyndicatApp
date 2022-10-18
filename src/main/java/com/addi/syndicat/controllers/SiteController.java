@@ -33,7 +33,7 @@ public class SiteController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<String> saveSite(@RequestBody Site site) {
+    public ResponseEntity<?> saveSite(@RequestBody Site site) {
         return siteService.saveSite(site);
     }
 
